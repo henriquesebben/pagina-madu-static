@@ -1,0 +1,545 @@
+/* ---------------------------------------------------------------------------
+   Maria Eduarda Leite · Nutricionista — folha de estilo única
+   Mobile-first. Breakpoints: 640px (sm) e 768px (md), 1024px (lg) só p/ planos.
+--------------------------------------------------------------------------- */
+
+:root {
+  --cream: #f7f3ed;
+  --green-900: #263a31;
+  --green-950: #1e3028;
+  --rose: #a36b78;
+  --rose-light: #e2b6be;
+  --pink-pale: #eed9dd;
+  --muted: #526158;
+  --line: rgba(38, 58, 49, 0.2);
+  --line-soft: rgba(38, 58, 49, 0.1);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --serif: Georgia, "Times New Roman", Times, serif;
+
+  --container: 1152px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--green-900);
+  font: 16px/1.5 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+}
+
+/* ---------- layout ---------- */
+
+.section {
+  padding: 96px 24px;
+}
+
+.section-white {
+  background: #fff;
+}
+
+.section-dark {
+  background: var(--green-900);
+  color: #fff;
+}
+
+.container {
+  max-width: var(--container);
+  margin-inline: auto;
+}
+
+.center {
+  text-align: center;
+}
+
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid;
+  gap: 24px;
+}
+
+.gap-sm {
+  gap: 20px;
+}
+
+.gap-lg {
+  gap: 56px;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-left: 64px;
+    padding-right: 64px;
+  }
+  .grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ---------- typography helpers ---------- */
+
+.eyebrow {
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.label {
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: var(--rose);
+}
+
+.label-center {
+  text-align: center;
+}
+
+.label-dark {
+  color: var(--rose-light);
+}
+
+.h2 {
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.h2.center {
+  margin-bottom: 20px;
+}
+
+.h2.mb-grid {
+  margin-bottom: 56px;
+}
+
+.h3 {
+  margin-bottom: 16px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.h3-lg {
+  margin-bottom: 12px;
+  font-size: 30px;
+  font-weight: 600;
+}
+
+@media (min-width: 640px) {
+  .h2 {
+    font-size: 36px;
+  }
+}
+
+@media (min-width: 768px) {
+  .h2 {
+    font-size: 48px;
+  }
+}
+
+.prose {
+  line-height: 1.625;
+  color: var(--muted);
+}
+
+.prose.small {
+  font-size: 14px;
+}
+
+.prose + .prose {
+  margin-top: 24px;
+}
+
+.accent-serif {
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--rose);
+}
+
+.accent-serif-dark {
+  color: var(--rose-light);
+}
+
+.section-lead {
+  max-width: 672px;
+  margin: 0 auto 56px;
+  text-align: center;
+  line-height: 1.625;
+  color: var(--muted);
+}
+
+.section-lead-dark {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- buttons ---------- */
+
+.btn {
+  display: inline-block;
+  padding: 16px 28px;
+  border-radius: 9999px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.btn-solid {
+  background: var(--green-900);
+  color: #fff;
+}
+
+.btn-solid:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  border: 1px solid var(--green-900);
+  color: var(--green-900);
+}
+
+.btn-sm {
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+/* ---------- nav ---------- */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 80px;
+}
+
+.nav-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-role {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- hero ---------- */
+
+.hero {
+  min-height: 100vh;
+}
+
+.hero.section {
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+
+.hero-grid {
+  display: grid;
+  gap: 48px;
+  align-items: center;
+}
+
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.hero-title {
+  margin-bottom: 24px;
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+@media (min-width: 640px) {
+  .hero-title {
+    font-size: 48px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 60px;
+  }
+}
+
+.hero-subtitle {
+  max-width: 576px;
+  margin-bottom: 32px;
+  font-size: 18px;
+  line-height: 1.625;
+  color: var(--muted);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 32px;
+  padding: 0;
+  list-style: none;
+}
+
+.badge {
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 9999px;
+  font-size: 14px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero-photo-wrap {
+  display: flex;
+  justify-content: center;
+}
+
+.hero-photo {
+  width: 100%;
+  max-width: 420px;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 200px 200px 30px 30px;
+}
+
+/* ---------- sobre ---------- */
+
+.checklist {
+  margin: 32px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist li {
+  position: relative;
+  padding-left: 24px;
+}
+
+.checklist li + li {
+  margin-top: 16px;
+}
+
+.checklist li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+}
+
+.crn {
+  margin-top: 32px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ---------- atendimento ---------- */
+
+.card {
+  padding: 32px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.card-number {
+  margin-bottom: 32px;
+  font-size: 14px;
+  color: var(--rose);
+}
+
+.mt-cta {
+  margin-top: 48px;
+}
+
+/* ---------- planos ---------- */
+
+.plan {
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+}
+
+.plan .h3 {
+  margin-bottom: 12px;
+}
+
+.plan-tagline {
+  min-height: 80px;
+  margin-bottom: 32px;
+  font-size: 14px;
+  line-height: 1.625;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.plan-meta {
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.plan-meta p:first-child {
+  margin-bottom: 8px;
+}
+
+.plan-note {
+  margin-top: 40px;
+  text-align: center;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- depoimentos ---------- */
+
+.quote {
+  padding: 32px;
+  background: var(--cream);
+  border: 1px solid var(--line-soft);
+  border-radius: 24px;
+}
+
+.stars {
+  margin-bottom: 16px;
+  color: var(--rose);
+}
+
+.quote-highlight {
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.quote-text {
+  margin-bottom: 24px;
+  white-space: pre-line;
+}
+
+.quote-name {
+  font-weight: 600;
+}
+
+/* ---------- onde atendo ---------- */
+
+.onde-card {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+}
+
+.pill-badge {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background: var(--pink-pale);
+  border-radius: 9999px;
+  font-size: 14px;
+}
+
+.onde-card > .prose {
+  margin-bottom: 32px;
+}
+
+.info {
+  padding: 20px;
+  background: var(--cream);
+  border-radius: 16px;
+}
+
+.info-title {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.onde-cta {
+  margin-top: 64px;
+}
+
+.onde-cta .prose {
+  margin-bottom: 28px;
+}
+
+/* ---------- rodapé ---------- */
+
+.footer {
+  padding: 48px 24px;
+  background: var(--green-950);
+  color: #fff;
+  text-align: center;
+}
+
+.footer-name {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.footer-crn {
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 14px;
+}
+
+.footer-links a {
+  text-decoration: none;
+}
