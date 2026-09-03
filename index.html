@@ -284,6 +284,46 @@ Dessa vez foi diferente: aprendi a comer e mantenho o peso há mais de um ano.</
     </section>
   </main>
 
+  <!-- WHATSAPP FLUTUANTE -->
+  <div class="wa" id="wa">
+    <div class="wa-card" id="waCard" hidden>
+      <div class="wa-card-head">
+        <span class="wa-avatar" aria-hidden="true">
+          <img src="assets/foto.jpg" alt="" width="40" height="40" />
+        </span>
+        <span>
+          <span class="wa-card-name">Maria Eduarda Leite</span>
+          <span class="wa-card-role">Nutricionista · responde no horário comercial</span>
+        </span>
+        <button class="wa-close" id="waClose" type="button" aria-label="Fechar">&times;</button>
+      </div>
+      <div class="wa-card-body">
+        <p class="wa-bubble">
+          Oi! 👋 Que bom te ver por aqui. Me conta o seu objetivo que eu te explico como
+          funciona o acompanhamento.
+        </p>
+      </div>
+      <a
+        class="wa-card-cta"
+        href="https://wa.me/5561920042745?text=Ol%C3%A1%2C%20Maria%20Eduarda!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20consulta."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+          <path d="M16.004 0A15.9 15.9 0 0 0 .002 16c0 3.5 1.128 6.746 3.048 9.38L1.05 31.05l5.86-1.874A15.9 15.9 0 0 0 16.004 32C24.83 32 32 24.826 32 16S24.83 0 16.004 0zm9.31 22.594c-.386 1.09-1.918 1.994-3.14 2.258-.836.178-1.928.32-5.604-1.204-4.7-1.948-7.726-6.724-7.962-7.034-.226-.31-1.9-2.53-1.9-4.826s1.204-3.424 1.63-3.894c.352-.386.766-.562 1.02-.562.28 0 .53.002.75.014.586.026.88.06 1.266.984.482 1.156 1.65 4.008 1.79 4.3.14.292.234.632.04.942-.18.32-.34.518-.63.86-.29.34-.61.762-.87 1.022-.29.29-.592.606-.254 1.188.338.57 1.5 2.474 3.222 4.008 2.214 1.972 4.062 2.586 4.634 2.826.572.24.902.202 1.234-.122.34-.33 1.45-1.69 1.838-2.27.386-.58.772-.482 1.3-.29.53.19 3.368 1.588 3.946 1.878.578.29.964.434 1.104.674.14.242.14 1.39-.246 2.48z"/>
+        </svg>
+        Iniciar conversa
+      </a>
+    </div>
+
+    <button class="wa-fab" id="waFab" type="button" aria-label="Abrir conversa no WhatsApp">
+      <span class="wa-dot" aria-hidden="true"></span>
+      <svg viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+        <path d="M16.004 0A15.9 15.9 0 0 0 .002 16c0 3.5 1.128 6.746 3.048 9.38L1.05 31.05l5.86-1.874A15.9 15.9 0 0 0 16.004 32C24.83 32 32 24.826 32 16S24.83 0 16.004 0zm9.31 22.594c-.386 1.09-1.918 1.994-3.14 2.258-.836.178-1.928.32-5.604-1.204-4.7-1.948-7.726-6.724-7.962-7.034-.226-.31-1.9-2.53-1.9-4.826s1.204-3.424 1.63-3.894c.352-.386.766-.562 1.02-.562.28 0 .53.002.75.014.586.026.88.06 1.266.984.482 1.156 1.65 4.008 1.79 4.3.14.292.234.632.04.942-.18.32-.34.518-.63.86-.29.34-.61.762-.87 1.022-.29.29-.592.606-.254 1.188.338.57 1.5 2.474 3.222 4.008 2.214 1.972 4.062 2.586 4.634 2.826.572.24.902.202 1.234-.122.34-.33 1.45-1.69 1.838-2.27.386-.58.772-.482 1.3-.29.53.19 3.368 1.588 3.946 1.878.578.29.964.434 1.104.674.14.242.14 1.39-.246 2.48z"/>
+      </svg>
+    </button>
+  </div>
+
   <!-- RODAPÉ -->
   <footer class="footer">
     <p class="footer-name">Maria Eduarda Leite</p>
@@ -293,5 +333,21 @@ Dessa vez foi diferente: aprendi a comer e mantenho o peso há mais de um ano.</
       <a href="https://wa.me/5561920042745" target="_blank" rel="noopener noreferrer">WhatsApp</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      var fab = document.getElementById("waFab");
+      var card = document.getElementById("waCard");
+      var close = document.getElementById("waClose");
+      if (!fab || !card) return;
+
+      function toggle(show) {
+        card.hidden = show === undefined ? !card.hidden : !show;
+      }
+
+      fab.addEventListener("click", function () { toggle(); });
+      close.addEventListener("click", function () { toggle(false); });
+    })();
+  </script>
 </body>
 </html>
