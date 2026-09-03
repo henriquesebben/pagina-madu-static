@@ -404,6 +404,8 @@ a {
 /* ---------- planos ---------- */
 
 .plan {
+  display: flex;
+  flex-direction: column;
   padding: 28px;
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -415,7 +417,6 @@ a {
 }
 
 .plan-tagline {
-  min-height: 80px;
   margin-bottom: 32px;
   font-size: 14px;
   line-height: 1.625;
@@ -423,6 +424,7 @@ a {
 }
 
 .plan-meta {
+  margin-top: auto;
   padding-top: 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
