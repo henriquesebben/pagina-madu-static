@@ -221,36 +221,46 @@
         <p class="label label-center">Depoimentos</p>
         <h2 class="h2 center mb-grid">Experiências de quem já passou por aqui</h2>
 
-        <div class="grid-2 gap-md">
-          <article class="quote">
-            <p class="stars">★★★★★</p>
-            <p class="quote-highlight">Perdi 8kg sem passar fome</p>
-            <p class="prose quote-text">Sempre achei que dieta era sinônimo de sofrimento.
+        <div class="carousel">
+          <button class="carousel-btn prev" type="button" aria-label="Depoimento anterior">&#8249;</button>
+
+          <div class="carousel-viewport">
+            <div class="carousel-track" id="depoimentos">
+              <article class="quote">
+                <p class="stars">★★★★★</p>
+                <p class="quote-highlight">Perdi 8kg sem passar fome</p>
+                <p class="prose quote-text">Sempre achei que dieta era sinônimo de sofrimento.
 Com a Maria Eduarda entendi que dava pra comer bem, comer o que eu gosto e ainda assim ver resultado.</p>
-            <p class="quote-name">Juliana R.</p>
-          </article>
-          <article class="quote">
-            <p class="stars">★★★★★</p>
-            <p class="quote-highlight">Melhorei meus exames em 3 meses</p>
-            <p class="prose quote-text">Meu colesterol e minha glicemia estavam altos.
+                <p class="quote-name">Juliana R.</p>
+              </article>
+              <article class="quote">
+                <p class="stars">★★★★★</p>
+                <p class="quote-highlight">Melhorei meus exames em 3 meses</p>
+                <p class="prose quote-text">Meu colesterol e minha glicemia estavam altos.
 Com pequenos ajustes na rotina, meus exames voltaram ao normal e eu me sinto com muito mais energia.</p>
-            <p class="quote-name">Carlos M.</p>
-          </article>
-          <article class="quote">
-            <p class="stars">★★★★★</p>
-            <p class="quote-highlight">Acompanhamento de verdade</p>
-            <p class="prose quote-text">O que mais me marcou foi o suporte entre as consultas.
+                <p class="quote-name">Carlos M.</p>
+              </article>
+              <article class="quote">
+                <p class="stars">★★★★★</p>
+                <p class="quote-highlight">Acompanhamento de verdade</p>
+                <p class="prose quote-text">O que mais me marcou foi o suporte entre as consultas.
 Nunca me senti sozinha no processo, sempre tinha alguém pra tirar minhas dúvidas.</p>
-            <p class="quote-name">Fernanda L.</p>
-          </article>
-          <article class="quote">
-            <p class="stars">★★★★★</p>
-            <p class="quote-highlight">Consegui manter depois de anos no efeito sanfona</p>
-            <p class="prose quote-text">Já tinha emagrecido e engordado tudo de novo várias vezes.
+                <p class="quote-name">Fernanda L.</p>
+              </article>
+              <article class="quote">
+                <p class="stars">★★★★★</p>
+                <p class="quote-highlight">Consegui manter depois de anos no efeito sanfona</p>
+                <p class="prose quote-text">Já tinha emagrecido e engordado tudo de novo várias vezes.
 Dessa vez foi diferente: aprendi a comer e mantenho o peso há mais de um ano.</p>
-            <p class="quote-name">Patrícia S.</p>
-          </article>
+                <p class="quote-name">Patrícia S.</p>
+              </article>
+            </div>
+          </div>
+
+          <button class="carousel-btn next" type="button" aria-label="Próximo depoimento">&#8250;</button>
         </div>
+
+        <div class="carousel-dots" id="depoimentos-dots"></div>
       </div>
     </section>
 
@@ -371,6 +381,123 @@ Dessa vez foi diferente: aprendi a comer e mantenho o peso há mais de um ano.</
 
         fab.addEventListener("click", () => setOpen(card.hidden));
         closeBtn.addEventListener("click", () => setOpen(false));
+      }
+    }
+
+    {
+      const track = document.getElementById("depoimentos");
+      const dots = document.getElementById("depoimentos-dots");
+
+      if (track && dots) {
+        const prevBtn = document.querySelector(".carousel-btn.prev");
+        const nextBtn = document.querySelector(".carousel-btn.next");
+
+        const real = [...track.children];
+        const count = real.length;
+
+        // 3 blocos [clones][reais][clones]: dá a volta 4º -> 1º -> 2º... sem emenda
+        real.map((s) => s.cloneNode(true)).forEach((c) => {
+          c.setAttribute("aria-hidden", "true");
+          track.insertBefore(c, track.firstChild);
+        });
+        real.map((s) => s.cloneNode(true)).forEach((c) => {
+          c.setAttribute("aria-hidden", "true");
+          track.append(c);
+        });
+
+        const GAP = 24;
+        const slideStep = () => track.children[0].getBoundingClientRect().width + GAP;
+
+        let pos = count; // começa no 1º depoimento real
+        const realIndex = () => (((pos - count) % count) + count) % count;
+
+        const render = (animate) => {
+          track.classList.toggle("animate", !!animate);
+          track.style.transform = `translateX(${-pos * slideStep()}px)`;
+        };
+
+        const syncDots = () => {
+          const i = realIndex();
+          [...dots.children].forEach((d, di) =>
+            d.setAttribute("aria-current", di === i ? "true" : "false")
+          );
+        };
+
+        // recoloca pos no bloco real (sem animar) e só então anda `delta`
+        const go = (delta) => {
+          const centered = count + realIndex();
+          if (centered !== pos) {
+            track.classList.remove("animate");
+            pos = centered;
+            track.style.transform = `translateX(${-pos * slideStep()}px)`;
+            void track.offsetWidth;
+          }
+          pos += delta;
+          render(true);
+          syncDots();
+        };
+
+        track.addEventListener("transitionend", () => {
+          const centered = count + realIndex();
+          if (centered !== pos) {
+            pos = centered;
+            render(false);
+          }
+        });
+
+        real.forEach((_, i) => {
+          const b = document.createElement("button");
+          b.type = "button";
+          b.setAttribute("aria-label", "Ir para o depoimento " + (i + 1));
+          b.addEventListener("click", () => {
+            pos = count + i;
+            render(true);
+            syncDots();
+          });
+          dots.append(b);
+        });
+
+        prevBtn.addEventListener("click", () => go(-1));
+        nextBtn.addEventListener("click", () => go(1));
+
+        let timer;
+        const play = () => (timer ||= setInterval(() => go(1), 4500));
+        const stop = () => (timer = clearInterval(timer));
+
+        let dragX = null;
+        let dragPos = 0;
+        track.addEventListener("pointerdown", (e) => {
+          stop();
+          dragX = e.clientX;
+          dragPos = pos;
+          track.classList.remove("animate");
+          track.setPointerCapture(e.pointerId);
+        });
+        track.addEventListener("pointermove", (e) => {
+          if (dragX === null) return;
+          const dx = e.clientX - dragX;
+          track.style.transform = `translateX(${-dragPos * slideStep() + dx}px)`;
+        });
+        const endDrag = (e) => {
+          if (dragX === null) return;
+          const dx = e.clientX - dragX;
+          dragX = null;
+          go(Math.max(-2, Math.min(2, Math.round(-dx / slideStep()))));
+          play();
+        };
+        track.addEventListener("pointerup", endDrag);
+        track.addEventListener("pointercancel", endDrag);
+
+        track.addEventListener("pointerenter", stop);
+        track.addEventListener("pointerleave", () => {
+          if (dragX === null) play();
+        });
+
+        window.addEventListener("resize", () => render(false));
+
+        syncDots();
+        render(false);
+        play();
       }
     }
   </script>
