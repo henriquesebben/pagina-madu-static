@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Teste — depoimentos em carrossel</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- só deste teste, não vai pro site ---- */
+    .cmp-head { padding: 40px 24px 0; text-align: center; }
+    .cmp-head p { margin-top: 8px; color: var(--muted); }
+
+    .carousel {
+      position: relative;
+      max-width: var(--container);
+      margin-inline: auto;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      padding: 4px;
+      margin: 0 -4px;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .carousel-track::-webkit-scrollbar { display: none; }
+
+    .carousel-track > .quote {
+      flex: 0 0 88%;
+      scroll-snap-align: center;
+    }
+
+    @media (min-width: 640px) {
+      .carousel-track > .quote { flex-basis: 60%; }
+    }
+    @media (min-width: 1024px) {
+      .carousel-track > .quote { flex-basis: calc((100% - 48px) / 3); }
+    }
+
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 9999px;
+      background: #fff;
+      color: var(--green-900);
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+    .carousel-btn:hover { background: var(--cream); }
+    .carousel-btn[disabled] { opacity: 0.35; cursor: default; }
+    .carousel-btn.prev { left: -8px; }
+    .carousel-btn.next { right: -8px; }
+
+    @media (min-width: 1200px) {
+      .carousel-btn.prev { left: -56px; }
+      .carousel-btn.next { right: -56px; }
+    }
+
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .carousel-dots button {
+      width: 8px;
+      height: 8px;
+      padding: 0;
+      border: none;
+      border-radius: 9999px;
+      background: var(--line);
+      cursor: pointer;
+    }
+    .carousel-dots button[aria-current="true"] {
+      background: var(--rose);
+      width: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="cmp-head">
+    <h1 class="h2">Depoimentos — versão carrossel</h1>
+    <p>Mesma seção do site, em carrossel. Arraste, use as setas ou os pontos. Compare com a versão em grade atual.</p>
+  </div>
+
+  <section class="section section-white">
+    <div class="container">
+      <p class="label label-center">Depoimentos</p>
+      <h2 class="h2 center mb-grid">Experiências de quem já passou por aqui</h2>
+
+      <div class="carousel">
+        <button class="carousel-btn prev" type="button" aria-label="Anterior">&#8249;</button>
+
+        <div class="carousel-track" id="track">
+          <article class="quote">
+            <p class="stars">★★★★★</p>
+            <p class="quote-highlight">Perdi 8kg sem passar fome</p>
+            <p class="prose quote-text">Sempre achei que dieta era sinônimo de sofrimento.
+Com a Maria Eduarda entendi que dava pra comer bem, comer o que eu gosto e ainda assim ver resultado.</p>
+            <p class="quote-name">Juliana R.</p>
+          </article>
+          <article class="quote">
+            <p class="stars">★★★★★</p>
+            <p class="quote-highlight">Melhorei meus exames em 3 meses</p>
+            <p class="prose quote-text">Meu colesterol e minha glicemia estavam altos.
+Com pequenos ajustes na rotina, meus exames voltaram ao normal e eu me sinto com muito mais energia.</p>
+            <p class="quote-name">Carlos M.</p>
+          </article>
+          <article class="quote">
+            <p class="stars">★★★★★</p>
+            <p class="quote-highlight">Acompanhamento de verdade</p>
+            <p class="prose quote-text">O que mais me marcou foi o suporte entre as consultas.
+Nunca me senti sozinha no processo, sempre tinha alguém pra tirar minhas dúvidas.</p>
+            <p class="quote-name">Fernanda L.</p>
+          </article>
+          <article class="quote">
+            <p class="stars">★★★★★</p>
+            <p class="quote-highlight">Consegui manter depois de anos no efeito sanfona</p>
+            <p class="prose quote-text">Já tinha emagrecido e engordado tudo de novo várias vezes.
+Dessa vez foi diferente: aprendi a comer e mantenho o peso há mais de um ano.</p>
+            <p class="quote-name">Patrícia S.</p>
+          </article>
+        </div>
+
+        <button class="carousel-btn next" type="button" aria-label="Próximo">&#8250;</button>
+      </div>
+
+      <div class="carousel-dots" id="dots"></div>
+    </div>
+  </section>
+
+  <script>
+    {
+      const track = document.getElementById("track");
+      const dots = document.getElementById("dots");
+      const prev = document.querySelector(".carousel-btn.prev");
+      const next = document.querySelector(".carousel-btn.next");
+      const slides = [...track.children];
+
+      const step = () => slides[1].getBoundingClientRect().left - slides[0].getBoundingClientRect().left;
+      const current = () => Math.round(track.scrollLeft / step());
+
+      slides.forEach((_, i) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.setAttribute("aria-label", "Ir para o depoimento " + (i + 1));
+        b.addEventListener("click", () => track.scrollTo({ left: step() * i }));
+        dots.append(b);
+      });
+
+      const sync = () => {
+        const i = current();
+        [...dots.children].forEach((d, di) => d.setAttribute("aria-current", di === i ? "true" : "false"));
+        prev.disabled = i <= 0;
+        next.disabled = i >= slides.length - 1;
+      };
+
+      prev.addEventListener("click", () => track.scrollBy({ left: -step() }));
+      next.addEventListener("click", () => track.scrollBy({ left: step() }));
+      track.addEventListener("scroll", () => window.requestAnimationFrame(sync));
+      window.addEventListener("resize", sync);
+      sync();
+    }
+  </script>
+</body>
+</html>
