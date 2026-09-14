@@ -82,7 +82,7 @@ a {
 
 .grid-2,
 .grid-3,
-.grid-4 {
+.grid-plans {
   display: grid;
   gap: 24px;
 }
@@ -106,14 +106,14 @@ a {
   .grid-3 {
     grid-template-columns: repeat(3, 1fr);
   }
-  .grid-4 {
+  .grid-plans {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (min-width: 1024px) {
-  .grid-4 {
-    grid-template-columns: repeat(4, 1fr);
+  .grid-plans {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -416,11 +416,29 @@ a {
   margin-bottom: 12px;
 }
 
-.plan-tagline {
-  margin-bottom: 32px;
+.plan-features {
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
   font-size: 14px;
-  line-height: 1.625;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.7);
+}
+
+.plan-features li {
+  position: relative;
+  padding-left: 22px;
+}
+
+.plan-features li + li {
+  margin-top: 10px;
+}
+
+.plan-features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--rose-light);
 }
 
 .plan-meta {
