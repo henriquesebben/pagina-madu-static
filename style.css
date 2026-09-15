@@ -461,6 +461,8 @@ a {
 /* ---------- depoimentos ---------- */
 
 .quote {
+  display: flex;
+  flex-direction: column;
   padding: 32px;
   background: var(--cream);
   border: 1px solid var(--line-soft);
@@ -486,6 +488,7 @@ a {
 }
 
 .quote-name {
+  margin-top: auto;
   font-weight: 600;
 }
 
